@@ -1,6 +1,5 @@
-// to toggle back to the guest book form with click of home button
-$('#home-button').on("click", function() {
-    window.location.href = "guestbook.html";
+$('#logout-button').on('click', function() {
+    window.location.href = 'logout.php';
 });
 
 // jquery plugin to allow modal popup when the width of table decreases and less columns show
