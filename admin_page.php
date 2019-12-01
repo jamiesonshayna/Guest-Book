@@ -39,11 +39,9 @@ File Name: admin_page.php
 
 <div id="table-container">
 
-    <h3>Student Summary</h3>
-
     <?php
-    //require('/home/sjamieso/connect-guestbook.php');
-    require('private/connect-guestbook.php');
+    require('/home/sjamieso/connect-guestbook.php');
+    //require('private/connect-guestbook.php');
     //Define the query
     $sql = 'SELECT * FROM User;';
     //Send the query to the database
@@ -69,19 +67,19 @@ File Name: admin_page.php
         <?php
         //Print the results
         while ($row = mysqli_fetch_assoc($result)) {
+            // convert date to be more readable
+            $date = date( 'm-d-Y', strtotime($row['user_date_joined']));
             echo "<tr>
                 <td>{$row['user_title']} {$row['user_first']} {$row['user_last']}</td>
                 <td>{$row['user_company']}</td>
                 <td>{$row['user_linked_in']}</td>
                 <td>{$row['user_email']}</td>
                 <td>{$row['user_mailing']}</td>
-                <td>{$row['user_email-format']}</td>
+                <td>{$row['user_email_format']}</td>
                 <td>{$row['user_comment']}</td>
                 <td>{$row['user_how_we_met']}</td>
-                <td>{$row['user_date_joined']}</td>
+                <td>$date</td>
               </tr>";
-            // example of how to convert dates in PHP !!! String format
-//          //                $birthdate = date('m-d-Y', strtotime($row[birthdate'));
         }
         ?>
 
@@ -100,13 +98,14 @@ File Name: admin_page.php
 <script>
     //$('#guestbook-table').DataTable();
 
+    // jquery plugin to allow modal popup when the width of table decreases and less columns show
     $('#guestbook-table').DataTable( {
         responsive: {
             details: {
                 display: $.fn.dataTable.Responsive.display.modal( {
                     header: function ( row ) {
                         var data = row.data();
-                        return 'Details for '+data[0]+' '+data[1];
+                        return 'Details for '+data[0];
                     }
                 } ),
                 renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
