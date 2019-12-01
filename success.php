@@ -15,7 +15,10 @@ validation and the page simply displays a thank you message.
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require('/home/sjamieso/connect-guestbook.php');
 include("server_validation.php");
+include("private/add_query.php");
+
 
     $title = $_POST['title'];
     $first = $_POST['fName'];
@@ -95,30 +98,64 @@ include("server_validation.php");
             }
     }
 
-    if($isValid) {
-        echo "<h2>Thank you for your submission <?php echo $first?></h2>";
-        echo "<h3>Below is a summary of your results</h3><br>";
-        echo "<p><strong>Full Name:</strong> $title $first $last</p>";
-        if($company != "") {
-            echo "<p><strong>Company:</strong> $company</p>";
+        // here is where we start to try to enter into the database
+        // at this stage we have passed client and server side validation so the data is good to go
+
+        if($isValid) {
+        $userEmail = "";
+        if(isset($_POST['email'])) {
+            $userEmail = $_POST['email'];
+        } else {
+            $emailFormat = "n/a";
         }
-        if($linkedIn != "") {
-            echo "<p><strong>LinkedIn:</strong> $linkedIn</p>";
-        }
-        if($_POST['email'] != "") {
-            echo "<p><strong>Email:</strong> {$_POST['email']}</p>";
-        }
+
+        $mailingList = "";
         if(isset($_POST['mailing-list'])) {
-            echo "<p><strong>Added To Mailing List:</strong> Yes</p>";
-            echo "<p><strong>Email Format:</strong> $emailFormat</p>";
+            $mailingList = "yes";
+        } else {
+            $mailingList = "no";
         }
-        if($comment != "") {
-            echo "<p><strong>Comments:</strong> $comment</p>";
+
+        $userHowWeMet = $_POST['how-we-met'];
+        if($userHowWeMet == "other") {
+            $userHowWeMet = $_POST['please-specify-other'];
         }
-        echo "<p><strong>How Did We Meet:</strong> $howWeMet</p>";
-        if($howWeMet == "other") {
-            echo "<p><strong>Explanation:</strong> $pleaseSpecifyOther</p>";
+
+        // insert the new user into the database User table
+        $success = newGuest($title, $first, $last, $company, $linkedIn, $userEmail, $emailFormat, $mailingList, $comment, $userHowWeMet);
+
+        if($success) {
+            echo "<h2>Thank you for your submission <?php echo $first?></h2>";
+            echo "<h3>Below is a summary of your results</h3><br>";
+            echo "<p><strong>Full Name:</strong> $title $first $last</p>";
+            if($company != "") {
+                echo "<p><strong>Company:</strong> $company</p>";
+            }
+            if($linkedIn != "") {
+                echo "<p><strong>LinkedIn:</strong> $linkedIn</p>";
+            }
+            if($_POST['email'] != "") {
+                echo "<p><strong>Email:</strong> {$_POST['email']}</p>";
+            }
+            if(isset($_POST['mailing-list'])) {
+                echo "<p><strong>Added To Mailing List:</strong> Yes</p>";
+                echo "<p><strong>Email Format:</strong> $emailFormat</p>";
+            }
+            if($comment != "") {
+                echo "<p><strong>Comments:</strong> $comment</p>";
+            }
+            echo "<p><strong>How Did We Meet:</strong> $howWeMet</p>";
+            if($howWeMet == "other") {
+                echo "<p><strong>Explanation:</strong> $pleaseSpecifyOther</p>";
+            }
         }
+        // here is if we were not able to add the new guest into the database
+        // we want to display an error message
+        else {
+            echo "Count not add entry into database";
+        }
+
+
     }
     // here we loop through and print out all of the errors that we
     // caught in our array
