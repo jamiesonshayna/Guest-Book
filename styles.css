@@ -37,6 +37,10 @@ legend {
     display: none;
 }
 
+#table-container {
+    margin: 0px 10px;
+}
+
 #toggle-email-format {
     display: none;
 }
