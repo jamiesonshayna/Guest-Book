@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/*
+Author: Shayna
+Date: 10/12/19
+File Name: styles.css
+Associated Files/Folders: images folder, success.php, guestbook.html
+*/
+
+#btn-div {
+    margin-bottom: 75px;
+}
+
+#email-check-div {
+    margin: 30px 0px;
+}
+
+.err {
+    color: red;
+    display: none;
+}
+
+#jumbo {
+    background-image: url("images/jumbo-bg.png");
+    background-size: cover;
+    color: floralwhite !important;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+legend {
+    border-bottom: 2px solid darkgray;
+    font-size: 2em;
+}
+
+#specify-other {
+    display: none;
+}
+
+#toggle-email-format {
+    display: none;
+}
+
