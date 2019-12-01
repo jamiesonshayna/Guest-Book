@@ -7,6 +7,10 @@ File Name: styles.css
 Associated Files/Folders: images folder, success.php, guestbook.html
 */
 
+#admin-button, #home-button {
+    border-color: white !important;
+}
+
 #btn-div {
     margin-bottom: 75px;
 }

@@ -33,6 +33,7 @@ File Name: admin_page.php
 
 <div class="jumbotron jumbotron-fluid" id="jumbo">
     <div class="container">
+        <button id="home-button" class="btn rounded-pill float-right text-white">HOME</button>
         <h1 class="display-4">Guest Book | ADMIN</h1>
     </div>
 </div> <!-- end of jumbotron-->
@@ -94,27 +95,7 @@ File Name: admin_page.php
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-
-<script>
-    //$('#guestbook-table').DataTable();
-
-    // jquery plugin to allow modal popup when the width of table decreases and less columns show
-    $('#guestbook-table').DataTable( {
-        responsive: {
-            details: {
-                display: $.fn.dataTable.Responsive.display.modal( {
-                    header: function ( row ) {
-                        var data = row.data();
-                        return 'Details for '+data[0];
-                    }
-                } ),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-                    tableClass: 'table'
-                } )
-            }
-        }
-    } );
-</script>
+<script src="scripts/admin_functions.js"></script>
 </body>
 </html>
 
