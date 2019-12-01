@@ -34,7 +34,20 @@ include("private/add_query.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Submission Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <!-- For the icon in the tab -->
+    <!-- https://favicon.io/emoji-favicons/fallen-leaf/ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="manifest" href="images/site.webmanifest">
+
+    <title>Guest Book | Success</title>
 </head>
 <body>
 
@@ -105,8 +118,10 @@ include("private/add_query.php");
         $userEmail = "";
         if(isset($_POST['email'])) {
             $userEmail = $_POST['email'];
-        } else {
-            $emailFormat = "n/a";
+        }
+
+        if($userEmail == "") {
+            $emailFormat = "";
         }
 
         $mailingList = "";

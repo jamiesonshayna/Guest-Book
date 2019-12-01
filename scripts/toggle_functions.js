@@ -28,3 +28,7 @@ function toggleOptionsHowWeMet() {
         metOther.style.display = "none";
     }
 }
+
+$('#admin-button').on("click", function() {
+    window.location = "admin_page.php";
+});
