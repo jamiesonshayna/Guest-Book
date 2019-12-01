@@ -1,8 +1,51 @@
+<?php
+    // error reporting
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+
+    //Start a session
+    session_start();
+
+
+    //If the user is already logged in and we can navigate them to the admin page
+    if (isset($_SESSION['username'])) {
+        header('location: admin_page.php');
+    }
+
+    //If the login form has been submitted
+    if (isset($_POST['submit'])) {
+        //Include creds.php (eventually, passwords should be moved to a secure location
+        //or stored in a database)
+        require('/home/sjamieso/connect-guestbook.php');
+
+
+        //Get the username and password from the POST array
+        $username = $_POST['uname1'];
+        $password = $_POST['pwd1'];
+
+        global $loginCreds;
+        //If the username and password are correct
+        if(array_key_exists($username, $loginCreds) && $loginCreds["$username"] == $password) {
+            //Store login name in a session variable
+            $_SESSION['username'] = $username;
+
+            //Redirect to page 1
+            header('location: admin_page.php');
+        }
+
+        else {
+            echo '<script language="javascript">';
+            echo 'alert("Invalid Login. Please re-try!")';
+            echo '</script>';
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <!--
 Author: Shayna
 Date: 10/12/19
-File Name: guestbook.html
+File Name: guestbook.php
 Associated Files/Folders: images folder, success.php, styles.css
 The purpose of this assignment was to create a "mock" guest book form using Bootstrap 4. We were to create
 the required fields of the assignment and add some basic styles as needed.
@@ -29,11 +72,40 @@ the required fields of the assignment and add some basic styles as needed.
 
 <div class="jumbotron jumbotron-fluid" id="jumbo">
     <div class="container">
-        <button id="admin-button" class="btn rounded-pill float-right text-white">ADMIN</button>
+        <button id="admin-button" class="btn rounded-pill float-right text-white" href="#loginModal" role="button" data-toggle="modal">ADMIN</button>
         <h1 class="display-4">Guest Book</h1>
         <p class="lead">Please sign up below</p>
     </div>
 </div> <!-- end of jumbotron-->
+<div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Login</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <form method="post" action="">
+            <div class="modal-body">
+                <form class="form" role="form" autocomplete="off" id="formLogin" novalidate="" method="POST">
+                    <div class="form-group">
+                        <label for="uname1">Username</label>
+                        <input type="text" class="form-control form-control-lg" name="uname1" id="uname1">
+                        <div class="invalid-feedback">Oops, you missed this one.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control form-control-lg" name="pwd1" id="pwd1">
+                        <div class="invalid-feedback">Enter your password too!</div>
+                    </div>
+                    <div class="form-group py-4">
+                        <button type="submit" name="submit" value="Submit" class="btn btn-dark btn-lg float-right" id="btnLogin">Login</button>
+                    </div>
+                </form>
+            </div>
+            </form>
+        </div>
+    </div>
+</div> <!-- end of div that holds the login modal -->
 
 <div class="container">
 

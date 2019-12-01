@@ -2,6 +2,14 @@
     //Turn on error reporting -- this is critical!
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
+
+    //Start the session
+    session_start();
+
+    // If user is not logged in, reroute them to the login page
+    if(!isset($_SESSION['username'])) {
+        header('location: guestbook.php');
+    }
 ?>
 <!DOCTYPE html>
 <!--
@@ -33,7 +41,7 @@ File Name: admin_page.php
 
 <div class="jumbotron jumbotron-fluid" id="jumbo">
     <div class="container">
-        <button id="home-button" class="btn rounded-pill float-right text-white">HOME</button>
+        <button id="logout-button" class="btn rounded-pill float-right text-white">LOGOUT</button>
         <h1 class="display-4">Guest Book | ADMIN</h1>
     </div>
 </div> <!-- end of jumbotron-->

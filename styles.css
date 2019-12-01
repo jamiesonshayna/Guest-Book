@@ -4,10 +4,10 @@
 Author: Shayna
 Date: 10/12/19
 File Name: styles.css
-Associated Files/Folders: images folder, success.php, guestbook.html
+Associated Files/Folders: images folder, success.php, guestbook.php
 */
 
-#admin-button, #home-button {
+#admin-button, #logout-button {
     border-color: white !important;
 }
 
