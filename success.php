@@ -16,7 +16,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require('/home/sjamieso/connect-guestbook.php');
-include("server_validation.php");
+include("private/server_validation.php");
 include("private/add_query.php");
 
 
@@ -38,7 +38,7 @@ include("private/add_query.php");
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
 
     <!-- For the icon in the tab -->
     <!-- https://favicon.io/emoji-favicons/fallen-leaf/ -->
@@ -140,6 +140,7 @@ include("private/add_query.php");
         $success = newGuest($title, $first, $last, $company, $linkedIn, $userEmail, $emailFormat, $mailingList, $comment, $userHowWeMet);
 
         if($success) {
+            echo "<div class='container text-center'>";
             echo "<h2>Thank you for your submission <?php echo $first?></h2>";
             echo "<h3>Below is a summary of your results</h3><br>";
             echo "<p><strong>Full Name:</strong> $title $first $last</p>";
@@ -161,7 +162,7 @@ include("private/add_query.php");
             }
             echo "<p><strong>How Did We Meet:</strong> $howWeMet</p>";
             if($howWeMet == "other") {
-                echo "<p><strong>Explanation:</strong> $pleaseSpecifyOther</p>";
+                echo "<p><strong>Explanation:</strong> $pleaseSpecifyOther</p></div>";
             }
         }
         // here is if we were not able to add the new guest into the database

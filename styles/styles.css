@@ -25,7 +25,7 @@ Associated Files/Folders: images folder, success.php, guestbook.php
 }
 
 #jumbo {
-    background-image: url("images/jumbo-bg.png");
+    background-image: url("../images/jumbo-bg.png");
     background-size: cover;
     color: floralwhite !important;
     padding-top: 2rem;
